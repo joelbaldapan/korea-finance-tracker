@@ -20,10 +20,10 @@ export function ThemeToggle() {
     return (
         <button 
             onClick={() => setIsDark(!isDark)}
-            className="p-2 brutal-btn"
+            className="p-1 sm:p-2 brutal-btn"
             aria-label="Toggle theme"
         >
-            {isDark ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
+            {isDark ? <Sun className="w-5 h-5 sm:w-6 sm:h-6" /> : <Moon className="w-5 h-5 sm:w-6 sm:h-6" />}
         </button>
     );
 }

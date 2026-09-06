@@ -97,35 +97,35 @@ function DashboardLayout() {
                     className="dashboard-header-btn"
                     aria-label="Add Manual Transaction"
                 >
-                    <Plus className="w-6 h-6" />
+                    <Plus className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
                 <button 
                     onClick={() => setIsSettingsOpen(true)}
                     className="dashboard-header-btn"
                     aria-label="Settings"
                 >
-                    <Settings className="w-6 h-6" />
+                    <Settings className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
                 <button 
                     onClick={() => setIsImportOpen(true)}
                     className="dashboard-header-btn"
                     aria-label="Import Gmail"
                 >
-                    <Mail className="w-6 h-6" />
+                    <Mail className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
                 <Link 
                     to="/trash"
                     className="dashboard-header-btn"
                     aria-label="Trash"
                 >
-                    <Trash2 className="w-6 h-6" />
+                    <Trash2 className="w-5 h-5 sm:w-6 sm:h-6" />
                 </Link>
                 <button 
                     onClick={handleSignOut}
                     className="dashboard-header-btn"
-                    aria-label="Sign out"
+                    aria-label="Sign Out"
                 >
-                    <LogOut className="w-6 h-6" />
+                    <LogOut className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
             </div>
         </header>

@@ -9,20 +9,20 @@ export class GeminiSmsParser implements ITransactionParser {
   }
 
   canHandle(source: string): boolean {
-    return source.toLowerCase() === 'sms' || source.toLowerCase() === 'ios_shortcut';
+    return source.toLowerCase() === 'sms' || source.toLowerCase() === 'ios_shortcut' || source.toLowerCase() === 'gemini';
   }
 
   async parse(rawBody: string, fallbackDate: Date): Promise<ParsedTransaction> {
     try {
         const prompt = `
-Extract the transaction details from the following SMS message.
+Extract the transaction details from the following message (SMS or Email).
 Return ONLY a raw JSON object (no markdown, no backticks, just the {}).
 Required keys:
 - "merchant" (string)
 - "amount" (number, digits only)
 - "currency" (string, either "KRW" or "PHP" based on context. ₩ is KRW, ₱ or PHP is PHP)
 
-SMS Message:
+Message:
 "${rawBody}"
 `;
         
