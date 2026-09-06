@@ -131,18 +131,36 @@ function DashboardLayout() {
         </header>
 
         <main className="dashboard-main">
-            <div className="month-filter-container" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '24px' }}>
-                {months.map((m, idx) => (
-                    <label key={m} className={`cursor-pointer px-3 py-1 border-2 border-black font-bold uppercase text-xs transition-colors ${selectedMonths.has(idx) ? 'bg-yellow-400 text-black' : 'bg-transparent text-gray-400 dark:border-white'}`} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                        <input 
-                            type="checkbox" 
-                            checked={selectedMonths.has(idx)}
-                            onChange={() => toggleMonth(idx)}
-                            style={{ display: 'none' }}
-                        />
-                        {m}
-                    </label>
-                ))}
+            <div className="flex flex-col gap-2 mb-6">
+                <div className="flex gap-2 justify-center flex-wrap">
+                    {months.slice(0, 6).map((m, idx) => (
+                        <label key={m} className={`cursor-pointer px-3 py-1 border-2 border-black font-bold uppercase text-xs transition-colors ${selectedMonths.has(idx) ? 'bg-yellow-400 text-black' : 'bg-transparent text-gray-400 dark:border-white'}`} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <input 
+                                type="checkbox" 
+                                checked={selectedMonths.has(idx)}
+                                onChange={() => toggleMonth(idx)}
+                                style={{ display: 'none' }}
+                            />
+                            {m}
+                        </label>
+                    ))}
+                </div>
+                <div className="flex gap-2 justify-center flex-wrap">
+                    {months.slice(6, 12).map((m, idx) => {
+                        const realIdx = idx + 6;
+                        return (
+                            <label key={m} className={`cursor-pointer px-3 py-1 border-2 border-black font-bold uppercase text-xs transition-colors ${selectedMonths.has(realIdx) ? 'bg-yellow-400 text-black' : 'bg-transparent text-gray-400 dark:border-white'}`} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                <input 
+                                    type="checkbox" 
+                                    checked={selectedMonths.has(realIdx)}
+                                    onChange={() => toggleMonth(realIdx)}
+                                    style={{ display: 'none' }}
+                                />
+                                {m}
+                            </label>
+                        );
+                    })}
+                </div>
             </div>
             
             <DashboardSummary selectedMonths={selectedMonths} />
