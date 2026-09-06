@@ -9,6 +9,7 @@ export function TransactionFeed({ selectedMonths }: { selectedMonths: Set<number
     const { data: allTransactions, isLoading } = useTransactions();
     const { massSoftDelete } = useMutateTransactions();
     const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+    const [expandedNotes, setExpandedNotes] = useState<Set<string>>(new Set());
     
     const transactions = (allTransactions || []).filter(t => {
         if (selectedMonths.size === 0) return true;
@@ -57,12 +58,22 @@ export function TransactionFeed({ selectedMonths }: { selectedMonths: Set<number
         }
     };
     
-    const handleDeleteAll = async () => {
-        if (transactions.length === 0) return;
-        if (confirm(`Are you sure you want to delete ALL ${transactions.length} transactions?`)) {
-            await massSoftDelete.mutateAsync(allIds);
-            setSelectedIds(new Set());
+    const handleToggleNotesSelected = () => {
+        if (selectedIds.size === 0) return;
+        const next = new Set(expandedNotes);
+        let allSelectedExpanded = true;
+        selectedIds.forEach(id => {
+            if (!next.has(id)) allSelectedExpanded = false;
+        });
+
+        if (allSelectedExpanded) {
+            // Unshow all
+            selectedIds.forEach(id => next.delete(id));
+        } else {
+            // Show all
+            selectedIds.forEach(id => next.add(id));
         }
+        setExpandedNotes(next);
     };
     
     return (
@@ -80,18 +91,18 @@ export function TransactionFeed({ selectedMonths }: { selectedMonths: Set<number
                         Select All
                     </label>
                     <button 
+                        onClick={handleToggleNotesSelected} 
+                        disabled={selectedIds.size === 0}
+                        className={`px-3 py-1 text-xs font-bold uppercase border-2 border-black transition-colors ${selectedIds.size > 0 ? 'bg-blue-400 hover:bg-blue-500 text-black' : 'bg-gray-200 text-gray-500 dark:bg-gray-800'}`}
+                    >
+                        Toggle Notes ({selectedIds.size})
+                    </button>
+                    <button 
                         onClick={handleMassDelete} 
                         disabled={selectedIds.size === 0 || massSoftDelete.isPending}
                         className={`px-3 py-1 text-xs font-bold uppercase border-2 border-black transition-colors ${selectedIds.size > 0 ? 'bg-red-400 hover:bg-red-500 text-black' : 'bg-gray-200 text-gray-500 dark:bg-gray-800'}`}
                     >
                         Delete Selected ({selectedIds.size})
-                    </button>
-                    <button 
-                        onClick={handleDeleteAll} 
-                        disabled={transactions.length === 0 || massSoftDelete.isPending}
-                        className="px-3 py-1 text-xs font-bold uppercase border-2 border-black bg-black text-white hover:bg-gray-800 transition-colors"
-                    >
-                        Delete All
                     </button>
                 </div>
             </div>
@@ -103,6 +114,13 @@ export function TransactionFeed({ selectedMonths }: { selectedMonths: Set<number
                         transaction={tx} 
                         isSelected={selectedIds.has(tx.id)}
                         onToggleSelect={() => toggleSelect(tx.id)}
+                        isNotesExpanded={expandedNotes.has(tx.id)}
+                        onToggleNotes={() => {
+                            const next = new Set(expandedNotes);
+                            if (next.has(tx.id)) next.delete(tx.id);
+                            else next.add(tx.id);
+                            setExpandedNotes(next);
+                        }}
                     />
                 ))}
             </div>
@@ -110,10 +128,9 @@ export function TransactionFeed({ selectedMonths }: { selectedMonths: Set<number
     );
 }
 
-function TransactionItem({ transaction: tx, isSelected, onToggleSelect }: { transaction: Transaction, isSelected: boolean, onToggleSelect: () => void }) {
+function TransactionItem({ transaction: tx, isSelected, onToggleSelect, isNotesExpanded, onToggleNotes }: { transaction: Transaction, isSelected: boolean, onToggleSelect: () => void, isNotesExpanded: boolean, onToggleNotes: () => void }) {
     const { softDelete, translate, editTransaction } = useMutateTransactions();
     const [isEditing, setIsEditing] = useState(false);
-    const [isNotesExpanded, setIsNotesExpanded] = useState(false);
     const [editNote, setEditNote] = useState(tx.notes || '');
     
     const [editName, setEditName] = useState(tx.clean_store_name || tx.raw_merchant || '');
@@ -206,23 +223,23 @@ function TransactionItem({ transaction: tx, isSelected, onToggleSelect }: { tran
 
     return (
         <div className={`tx-item-container group flex items-start gap-3 ${isSelected ? 'border-yellow-400 bg-yellow-50 dark:bg-yellow-900/20' : ''}`}>
-            <div className="pt-2 pl-2">
+            <div className="pt-2 pl-2 flex items-center gap-2">
                 <input 
                     type="checkbox" 
                     checked={isSelected}
                     onChange={onToggleSelect}
                     className="w-4 h-4 cursor-pointer"
                 />
-            </div>
-            <div className="flex-1 w-full min-w-0">
-                <div className="tx-actions">
                 <button 
                     onClick={() => setIsEditing(true)}
-                    className="tx-edit-btn"
+                    className="text-gray-400 hover:text-black dark:hover:text-white transition-colors"
                     aria-label="Edit"
                 >
                     <Edit2 className="w-4 h-4" />
                 </button>
+            </div>
+            <div className="flex-1 w-full min-w-0">
+                <div className="tx-actions">
                 <button 
                     onClick={() => softDelete.mutate(tx.id)}
                     className="tx-delete-btn"
@@ -252,7 +269,7 @@ function TransactionItem({ transaction: tx, isSelected, onToggleSelect }: { tran
                 <div className="flex items-center gap-2">
                     <span className="tx-date">{date}</span>
                     <button 
-                        onClick={() => setIsNotesExpanded(!isNotesExpanded)}
+                        onClick={onToggleNotes}
                         className="flex items-center gap-1 text-[10px] uppercase font-bold text-gray-500 hover:text-black dark:hover:text-white transition-colors"
                     >
                         <FileText className="w-3 h-3" />

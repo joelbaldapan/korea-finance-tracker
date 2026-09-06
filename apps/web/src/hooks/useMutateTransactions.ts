@@ -56,6 +56,32 @@ export function useMutateTransactions() {
         }
     });
 
+    const massRestore = useMutation({
+        mutationFn: async (ids: string[]) => {
+            const { error } = await supabase
+                .from('transactions')
+                .update({ deleted_at: null })
+                .in('id', ids);
+            if (error) throw error;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['transactions'] });
+        }
+    });
+
+    const massHardDelete = useMutation({
+        mutationFn: async (ids: string[]) => {
+            const { error } = await supabase
+                .from('transactions')
+                .delete()
+                .in('id', ids);
+            if (error) throw error;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['transactions'] });
+        }
+    });
+
     const translate = useMutation({
         mutationFn: async ({ id, address }: { id: string, address: string }) => {
             const { data: session } = await supabase.auth.getSession();
@@ -123,5 +149,5 @@ export function useMutateTransactions() {
         }
     });
 
-    return { softDelete, massSoftDelete, restore, hardDelete, translate, editTransaction, addManualTransaction };
+    return { softDelete, massSoftDelete, restore, massRestore, hardDelete, massHardDelete, translate, editTransaction, addManualTransaction };
 }

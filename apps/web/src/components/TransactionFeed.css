@@ -17,7 +17,7 @@
 }
 
 .tx-delete-btn {
-    @apply absolute -top-3 -right-3 bg-red-500 text-white p-2 border-2 border-black opacity-0 group-hover:opacity-100 transition-opacity shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] z-10 hover:-translate-y-1 hover:translate-x-1;
+    @apply absolute -top-3 -right-3 bg-red-500 text-white p-2 border-2 border-black opacity-0 group-hover:opacity-100 transition-opacity shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] z-10 hover:bg-red-600;
 }
 
 .tx-header {
