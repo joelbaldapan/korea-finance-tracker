@@ -59,7 +59,8 @@ export class IngestController {
                 merchant_lat: geocode?.lat || null,
                 merchant_lng: geocode?.lng || null,
                 address: geocode?.address || null,
-                address_en: null
+                address_en: null,
+                notes: null
             });
             
             return c.json({ success: true, message: 'Transaction ingested successfully' });
@@ -131,7 +132,8 @@ export class IngestController {
                         merchant_lat: geocode?.lat || null,
                         merchant_lng: geocode?.lng || null,
                         address: geocode?.address || null,
-                        address_en: null
+                        address_en: null,
+                        notes: null
                     });
                     
                     results.push({ success: true, raw_merchant: parsed.rawMerchant });
@@ -188,7 +190,8 @@ export class IngestController {
                 merchant_lng: null,
                 address: null,
                 address_en: null,
-                hangul_name: null
+                hangul_name: null,
+                notes: null
             });
             
             return c.json({ success: true });

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTransactions } from '../hooks/useTransactions';
 import { useMutateTransactions } from '../hooks/useMutateTransactions';
-import { MapPin, ShoppingBag, Globe, Trash2, Languages, Edit2, X, Check } from 'lucide-react';
+import { MapPin, ShoppingBag, Globe, Trash2, Languages, Edit2, Check, FileText, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Transaction } from '@korea-finance-tracker/shared-types';
 import './TransactionFeed.css';
 
@@ -113,6 +113,8 @@ export function TransactionFeed({ selectedMonths }: { selectedMonths: Set<number
 function TransactionItem({ transaction: tx, isSelected, onToggleSelect }: { transaction: Transaction, isSelected: boolean, onToggleSelect: () => void }) {
     const { softDelete, translate, editTransaction } = useMutateTransactions();
     const [isEditing, setIsEditing] = useState(false);
+    const [isNotesExpanded, setIsNotesExpanded] = useState(false);
+    const [editNote, setEditNote] = useState(tx.notes || '');
     
     const [editName, setEditName] = useState(tx.clean_store_name || tx.raw_merchant || '');
     const [editCategory, setEditCategory] = useState(tx.category || '');
@@ -136,6 +138,22 @@ function TransactionItem({ transaction: tx, isSelected, onToggleSelect }: { tran
                 }
             });
             setIsEditing(false);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    const handleSaveNote = async () => {
+        setIsSaving(true);
+        try {
+            await editTransaction.mutateAsync({
+                id: tx.id,
+                data: {
+                    notes: editNote
+                }
+            });
         } catch (e) {
             console.error(e);
         } finally {
@@ -229,8 +247,19 @@ function TransactionItem({ transaction: tx, isSelected, onToggleSelect }: { tran
                 </div>
             </div>
             
-            <div className="tx-footer">
-                <span className="tx-date">{date}</span>
+            
+            <div className="tx-footer flex-wrap">
+                <div className="flex items-center gap-2">
+                    <span className="tx-date">{date}</span>
+                    <button 
+                        onClick={() => setIsNotesExpanded(!isNotesExpanded)}
+                        className="flex items-center gap-1 text-[10px] uppercase font-bold text-gray-500 hover:text-black dark:hover:text-white transition-colors"
+                    >
+                        <FileText className="w-3 h-3" />
+                        {isNotesExpanded ? 'Hide Notes' : 'Notes'}
+                        {isNotesExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                    </button>
+                </div>
                 
                 {tx.address && (
                     <div className="tx-location-container">
@@ -248,6 +277,26 @@ function TransactionItem({ transaction: tx, isSelected, onToggleSelect }: { tran
                     </div>
                 )}
             </div>
+            
+            {isNotesExpanded && (
+                <div className="mt-2 w-full border-t-2 border-dashed border-gray-300 dark:border-gray-700 pt-2">
+                    <textarea 
+                        className="brutal-input text-sm p-2 w-full min-h-[60px] resize-y" 
+                        placeholder="Add a note for this transaction..."
+                        value={editNote}
+                        onChange={(e) => setEditNote(e.target.value)}
+                    />
+                    <div className="flex justify-end mt-2">
+                        <button 
+                            onClick={handleSaveNote} 
+                            disabled={isSaving || editNote === (tx.notes || '')}
+                            className="px-3 py-1 bg-yellow-400 text-black border-2 border-black hover:bg-yellow-300 transition-colors font-bold uppercase text-xs disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            Save Note
+                        </button>
+                    </div>
+                </div>
+            )}
             </div>
         </div>
     );

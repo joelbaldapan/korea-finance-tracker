@@ -13,7 +13,6 @@ export function DashboardSummary({ selectedMonths }: { selectedMonths: Set<numbe
     }
     
     const now = new Date();
-    const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
     
     let totalKrw = 0;

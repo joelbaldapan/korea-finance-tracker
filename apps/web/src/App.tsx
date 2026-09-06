@@ -9,7 +9,8 @@ import { ThemeToggle } from './components/ThemeToggle';
 import { TrashScreen } from './components/TrashScreen';
 import { GmailImportModal } from './components/GmailImportModal';
 import { AddTransactionModal } from './components/AddTransactionModal';
-import { LogOut, Trash2, Mail, Plus } from 'lucide-react';
+import { SettingsModal } from './components/SettingsModal';
+import { LogOut, Trash2, Mail, Plus, Settings } from 'lucide-react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import './App.css';
 
@@ -66,6 +67,7 @@ function App() {
 function DashboardLayout() {
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [isManualOpen, setIsManualOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [selectedMonths, setSelectedMonths] = useState<Set<number>>(new Set());
 
   const handleSignOut = () => {
@@ -96,6 +98,13 @@ function DashboardLayout() {
                     aria-label="Add Manual Transaction"
                 >
                     <Plus className="w-6 h-6" />
+                </button>
+                <button 
+                    onClick={() => setIsSettingsOpen(true)}
+                    className="dashboard-header-btn"
+                    aria-label="Settings"
+                >
+                    <Settings className="w-6 h-6" />
                 </button>
                 <button 
                     onClick={() => setIsImportOpen(true)}
@@ -142,6 +151,7 @@ function DashboardLayout() {
         
         <GmailImportModal isOpen={isImportOpen} onClose={() => setIsImportOpen(false)} />
         <AddTransactionModal isOpen={isManualOpen} onClose={() => setIsManualOpen(false)} />
+        {isSettingsOpen && <SettingsModal onClose={() => setIsSettingsOpen(false)} />}
     </div>
   );
 }

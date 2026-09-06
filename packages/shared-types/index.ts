@@ -13,6 +13,7 @@ export interface Transaction {
   hangul_name: string | null;
   category: string | null;
   is_online: boolean;
+  notes: string | null;
   
   fx_rate: number | null;
   krw_amount: number | null;
