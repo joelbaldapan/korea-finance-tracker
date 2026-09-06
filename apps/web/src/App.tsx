@@ -132,9 +132,9 @@ function DashboardLayout() {
 
         <main className="dashboard-main">
             <div className="flex flex-col gap-2 mb-6">
-                <div className="flex gap-2 justify-center flex-wrap">
+                <div className="flex gap-1 sm:gap-2 justify-center flex-wrap">
                     {months.slice(0, 6).map((m, idx) => (
-                        <label key={m} className={`cursor-pointer px-3 py-1 border-2 border-black font-bold uppercase text-xs transition-colors ${selectedMonths.has(idx) ? 'bg-yellow-400 text-black' : 'bg-transparent text-gray-400 dark:border-white'}`} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                        <label key={m} className={`cursor-pointer px-2 sm:px-3 py-1 border-2 border-black font-bold uppercase text-[10px] sm:text-xs transition-colors ${selectedMonths.has(idx) ? 'bg-yellow-400 text-black' : 'bg-transparent text-gray-400 dark:border-white'}`} style={{ display: 'flex', alignItems: 'center' }}>
                             <input 
                                 type="checkbox" 
                                 checked={selectedMonths.has(idx)}
@@ -145,11 +145,11 @@ function DashboardLayout() {
                         </label>
                     ))}
                 </div>
-                <div className="flex gap-2 justify-center flex-wrap">
+                <div className="flex gap-1 sm:gap-2 justify-center flex-wrap">
                     {months.slice(6, 12).map((m, idx) => {
                         const realIdx = idx + 6;
                         return (
-                            <label key={m} className={`cursor-pointer px-3 py-1 border-2 border-black font-bold uppercase text-xs transition-colors ${selectedMonths.has(realIdx) ? 'bg-yellow-400 text-black' : 'bg-transparent text-gray-400 dark:border-white'}`} style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <label key={m} className={`cursor-pointer px-2 sm:px-3 py-1 border-2 border-black font-bold uppercase text-[10px] sm:text-xs transition-colors ${selectedMonths.has(realIdx) ? 'bg-yellow-400 text-black' : 'bg-transparent text-gray-400 dark:border-white'}`} style={{ display: 'flex', alignItems: 'center' }}>
                                 <input 
                                     type="checkbox" 
                                     checked={selectedMonths.has(realIdx)}
