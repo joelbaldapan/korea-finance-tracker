@@ -5,7 +5,7 @@
 }
 
 .dashboard-layout {
-    @apply min-h-screen max-w-md mx-auto relative flex flex-col pt-6 px-4 pb-0;
+    @apply min-h-screen max-w-2xl mx-auto relative flex flex-col pt-6 px-4 pb-0;
 }
 
 .dashboard-header {
@@ -17,7 +17,7 @@
 }
 
 .dashboard-header-actions {
-    @apply flex gap-4;
+    @apply flex gap-2 flex-wrap justify-end;
 }
 
 .dashboard-header-btn {
