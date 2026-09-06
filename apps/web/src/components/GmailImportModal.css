@@ -1,0 +1,41 @@
+@reference "../index.css";
+
+.gmail-modal-overlay {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+}
+
+.gmail-modal-content {
+    @apply w-full max-w-md border-2 border-black dark:border-white bg-white dark:bg-black p-6 flex flex-col gap-4 relative shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)];
+}
+
+.gmail-modal-close {
+    @apply absolute top-4 right-4 p-1 hover:bg-red-500 hover:text-white transition-colors border-2 border-transparent hover:border-black dark:hover:border-white;
+}
+
+.gmail-modal-title {
+    @apply font-black text-xl uppercase tracking-widest border-b-4 border-black dark:border-white pb-2 flex items-center;
+}
+
+.gmail-modal-desc {
+    @apply text-sm opacity-80;
+}
+
+.gmail-modal-form {
+    @apply flex flex-col gap-1;
+}
+
+.gmail-modal-label {
+    @apply font-bold uppercase tracking-wider text-xs;
+}
+
+.gmail-modal-hint {
+    @apply text-xs opacity-60 mt-1;
+}
+
+.gmail-modal-btn {
+    @apply py-3 border-2 border-black dark:border-white bg-primary text-black font-bold uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.gmail-modal-status {
+    @apply mt-2 p-3 border-2 border-black dark:border-white font-bold text-sm bg-neutral-100 dark:bg-neutral-800 break-words;
+}

@@ -1,0 +1,61 @@
+@reference "../index.css";
+
+.trash-screen-container {
+    @apply min-h-screen max-w-md mx-auto relative flex flex-col pt-6 px-4 pb-0;
+}
+
+.trash-screen-header {
+    @apply flex justify-between items-center mb-8;
+}
+
+.trash-back-btn {
+    @apply p-2 border-2 border-black dark:border-white bg-white dark:bg-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-transform;
+}
+
+.trash-title {
+    @apply font-black text-xl uppercase tracking-widest bg-red-500 text-white px-4 py-2 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)];
+}
+
+.trash-main {
+    @apply flex-1 flex flex-col gap-4 pb-24;
+}
+
+.trash-loading {
+    @apply p-4 font-bold uppercase border-2 border-black dark:border-white text-center;
+}
+
+.trash-empty {
+    @apply p-8 text-center border-4 border-dashed border-black dark:border-white;
+}
+
+.trash-empty-text {
+    @apply font-bold uppercase tracking-wider;
+}
+
+.trash-item-container {
+    @apply border-2 border-black dark:border-white bg-white dark:bg-black p-4 flex flex-col gap-3 opacity-70;
+}
+
+.trash-item-header {
+    @apply flex justify-between items-start gap-4;
+}
+
+.trash-item-name {
+    @apply font-bold text-lg truncate line-through;
+}
+
+.trash-item-amount {
+    @apply font-black text-lg line-through;
+}
+
+.trash-item-actions {
+    @apply flex justify-end gap-2 mt-2 border-t-2 border-black dark:border-white pt-2;
+}
+
+.trash-restore-btn {
+    @apply py-1 px-3 border-2 border-black dark:border-white bg-green-400 text-black text-xs font-bold uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all;
+}
+
+.trash-delete-btn {
+    @apply py-1 px-3 border-2 border-black dark:border-white bg-red-500 text-white text-xs font-bold uppercase tracking-wider shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all;
+}

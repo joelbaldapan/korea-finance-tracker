@@ -1,0 +1,33 @@
+@reference "../index.css";
+
+.dashboard-summary-container {
+    @apply w-full bg-primary border-2 border-black dark:border-white shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] p-6 flex flex-col gap-2 relative overflow-hidden;
+}
+
+.dashboard-summary-bg-circle {
+    @apply absolute top-0 right-0 w-32 h-32 bg-black opacity-10 translate-x-8 -translate-y-8 rounded-full;
+}
+
+.dashboard-summary-title {
+    @apply font-bold uppercase tracking-wider border-b-4 border-black pb-2 text-black relative z-10;
+}
+
+.dashboard-summary-content {
+    @apply flex flex-col relative z-10;
+}
+
+.dashboard-summary-krw {
+    @apply text-4xl font-black text-black;
+}
+
+.dashboard-summary-php {
+    @apply text-xl font-bold text-black/70;
+}
+
+.dashboard-summary-loading {
+    @apply w-full h-32 border-2 border-black dark:border-white bg-white dark:bg-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)] flex items-center justify-center p-4;
+}
+
+.dashboard-summary-loading-text {
+    @apply font-bold uppercase tracking-widest animate-pulse;
+}

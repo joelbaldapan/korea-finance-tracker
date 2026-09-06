@@ -1,0 +1,73 @@
+@reference "../index.css";
+
+.feed-container {
+    @apply flex flex-col gap-4 pb-24;
+}
+
+.feed-title {
+    @apply font-black text-2xl uppercase tracking-widest border-b-4 border-black dark:border-white pb-2 inline-block;
+}
+
+.feed-list {
+    @apply flex flex-col gap-6;
+}
+
+.tx-item-container {
+    @apply border-2 border-black dark:border-white bg-white dark:bg-black p-4 flex flex-col gap-3 relative;
+}
+
+.tx-delete-btn {
+    @apply absolute -top-3 -right-3 bg-red-500 text-white p-2 border-2 border-black opacity-0 group-hover:opacity-100 transition-opacity shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] z-10 hover:-translate-y-1 hover:translate-x-1;
+}
+
+.tx-header {
+    @apply flex justify-between items-start gap-4;
+}
+
+.tx-info {
+    @apply flex flex-col overflow-hidden;
+}
+
+.tx-name {
+    @apply font-bold text-lg truncate pr-2;
+}
+
+.tx-meta {
+    @apply flex items-center gap-2 text-sm opacity-70;
+}
+
+.tx-category {
+    @apply uppercase;
+}
+
+.tx-amounts {
+    @apply flex flex-col items-end flex-shrink-0 pt-1;
+}
+
+.tx-krw {
+    @apply font-black text-lg leading-none;
+}
+
+.tx-php {
+    @apply text-sm font-bold opacity-70 mt-1;
+}
+
+.tx-footer {
+    @apply flex justify-between items-center border-t-4 border-black dark:border-white pt-2 mt-1 gap-2;
+}
+
+.tx-date {
+    @apply text-xs font-bold uppercase bg-black text-white dark:bg-white dark:text-black px-2 py-1 text-center whitespace-nowrap;
+}
+
+.tx-location-container {
+    @apply flex items-center gap-1 text-xs px-2 py-1 bg-primary text-black border-2 border-black font-bold flex-1 min-w-0 justify-end;
+}
+
+.tx-location-text {
+    @apply truncate;
+}
+
+.tx-translate-btn {
+    @apply ml-1 hover:text-white flex-shrink-0;
+}
