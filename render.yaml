@@ -3,6 +3,7 @@ services:
   - type: web
     name: kft-api
     env: node
+    plan: free
     buildCommand: npm install && npm run build -w apps/api
     startCommand: npm run start -w apps/api
     envVars:
